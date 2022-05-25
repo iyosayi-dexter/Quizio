@@ -1,5 +1,8 @@
 from django.contrib.auth.models import ( BaseUserManager , AbstractUser)
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .utils import send_email_activation_mail
 
 
 class AcccountManager(BaseUserManager):
@@ -62,3 +65,8 @@ class Account(AbstractUser):
     def is_email_verified(self):
         return self.email_verified
 
+
+@receiver(post_save , sender=Account)
+def user_creation_receiver(sender , instance, created, **kwargs):
+    if created:
+        send_email_activation_mail(instance)
