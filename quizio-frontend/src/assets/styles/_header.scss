@@ -1,0 +1,4 @@
+.header {
+    @include flexbox(space-between , center);
+    padding:1rem .5rem;
+}

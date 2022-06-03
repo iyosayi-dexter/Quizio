@@ -1,0 +1,55 @@
+$primary-font:'Montserrat', sans-serif;
+$primary-color:#FF9F1C;
+$secondary-color:#a9a9a9;
+$light-hue:#FAFAFA;
+
+*, *::before , *::after {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size:14px;
+    font-family:$primary-font;
+    padding:2rem 5rem;
+}
+
+input, button{
+    font-family:$primary-font;
+}
+
+@mixin flexbox($justify-content , $align-items){
+    display:flex;
+    justify-content:$justify-content;
+    align-items:$align-items;
+}
+@mixin shadowEffect{
+    box-shadow:2px 1px 9px rgba($secondary-color, .5);
+}
+
+@mixin customScrollBar{
+    &::-webkit-scrollbar{
+        width:.5rem;
+        background:$light-hue;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: rgba($secondary-color,.2);
+        border-radius:2rem;
+    }
+}
+
+
+@import 'nav';
+@import 'header';
+@import 'home';
+@import 'auth';
+@import 'messages';
+@import 'dashboard';
+
+.--colorPrimary {
+    color:$primary-color;
+}
+.--bgPrimary{
+    background:$primary-color;
+}

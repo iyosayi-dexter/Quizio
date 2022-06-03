@@ -1,0 +1,85 @@
+.auth {
+    @include flexbox(space-between , center);
+    margin:0 auto;
+}
+
+.auth__main {
+    flex:.6;
+    max-width:450px;
+    margin:4.5rem 0;
+}
+.auth__aside{
+    flex:.4;
+    img {
+        max-width:400px;
+    }
+}
+.auth__formField {
+    margin:1rem 0;
+    label {
+        font-size:.9rem;
+        font-weight: bold;
+    }
+    input {
+        border:none;
+        background:$light-hue;
+        padding:1rem .5rem;
+        outline: none;
+        width:100%;
+        border-radius: .2rem;
+    }
+}
+.auth__passwordResetLinkWrapper {
+    text-align:right;
+    font-weight: bolder;
+    & > a {
+        text-decoration: none;
+        color:$primary-color;
+        font-size:.85rem;
+    }
+}
+.auth__main .auth__headerTextWrapper{
+    h1{
+        font-size:2rem;
+        margin:.3rem 0;
+    }
+    p{
+        color:$secondary-color;
+        font-size:.8rem;
+    }
+}
+.auth__aside .auth__headerTextWrapper{
+    h1{
+        font-size:1.4rem;
+        margin:.3rem 0;
+    }
+    p{
+        color:$secondary-color;
+        font-size:.8rem;
+    }
+}
+.auth__submitBtn {
+    width:100%;
+    background:black;
+    padding:.8rem .6rem;
+    border-radius:.2rem;
+    color:$primary-color;
+    margin:1rem auto;
+    cursor:pointer;
+}
+
+.auth__footer a{
+    text-decoration: none;
+    font-weight: medium;
+}
+
+
+@media screen and (max-width:700px){
+    .auth__aside {
+        display:none;
+    }
+    .auth__main{
+        width:100%;
+        flex:1;
+    }
+}

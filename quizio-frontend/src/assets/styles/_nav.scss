@@ -1,0 +1,31 @@
+.nav__list{
+    list-style: none;
+    @include flexbox(flex-start, center);
+    gap:1.5rem;
+}
+.nav__listItem > a {
+    text-decoration: none;
+    color:black;
+}
+
+@media screen and (max-width:700px) {
+    .nav{
+        position:fixed;
+        top:0;
+        left:0;
+        right: 10rem;
+        bottom:0;
+        background:$light-hue;
+        padding:1rem;
+        z-index:10;
+        display:none;
+    }
+    .nav__list{
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items:flex-start;
+    }
+    .nav--hidden{
+        display:none;
+    }
+}

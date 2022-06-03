@@ -1,0 +1,58 @@
+.container{
+    @include flexbox(space-around , center);
+    margin:2rem auto;
+}
+.container--reverse{
+    flex-direction:row-reverse;
+}
+.container__item, .container__item a {
+    font-size:1.3rem;
+    flex:.4;
+}
+.container__item {
+    margin:1rem 0;
+}
+.container__largeText {
+    font-size:3rem;
+}
+.container__appName{
+    color:$primary-color;
+}
+.container__imageWrapper{
+    img {
+        max-width:300px;
+    }
+}
+.container__linkWrapper {
+    @include flexbox(flex-start, center);
+}
+
+.container__link {
+    padding:.8rem 1rem;
+    border-radius:4rem;
+    font-weight: bolder;
+    font-size:.9rem;
+    width:8.5rem;
+    text-align:center;
+    text-decoration: none;
+    color:black;
+}
+.container__link--bgPrimary{
+    background:$primary-color;
+}
+.container__link--bgFade{
+    background:whitesmoke;
+}
+.container__illustrationWraper {
+    width:20%;
+    width:fit-content;
+    img {
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .container {
+        display: block;
+    }
+}
