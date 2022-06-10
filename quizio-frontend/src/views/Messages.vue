@@ -67,16 +67,14 @@
                 <button class='messages__selectNewBtn'>New Message</button>
             </div>
         </section>
-
         <!-- end of chat section -->
-
+        <!--<NewMessageModal/>-->
     </main>
 
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import Header from '../components/Header.vue'
 import Chats from '../components/Chats.vue'
 import Vector from '../assets/icons/Vector.vue'
 import SendIcon from '../assets/icons/SendIcon.vue'
@@ -87,6 +85,7 @@ import ProfileIcon from '../assets/icons/Profile.vue'
 import MessagesThread from '../components/MessagesThread.vue'
 import {message as messageInterface} from '../store/modules/chat'
 import {getCurrentDateTime} from '../utils/date'
+import NewMessageModal from '../components/NewMessageModal.vue'
 
 export default defineComponent({
     data: function(){
@@ -126,21 +125,25 @@ export default defineComponent({
         },
         sendMessage(){
             if (this.message_text.trim() !== '' | (this.attachments !== null && this.attachments.length>0)){
-                const new_message:messageInterface = {
-                    sender:{
+                let sender={
                         id:this.$store.state.user.id,
                         username:this.$store.state.user.username
-                    },
-                    receiver:{
-                        id:this.currentChatUserId,
-                        username:this.currentChatUserUsename
-                    },
+                }
+                let receiver = {
+                    id:this.currentChatUserId,
+                    username:this.currentChatUserUsename
+                }
+                let new_message = {
+                    receiver,
                     text:this.message_text,
                     attachments:this.attachments,
                     seen:false,
-                    date:getCurrentDateTime()
+                    date_sent:getCurrentDateTime()
                 }
-                this.$store.commit('chat/sendMessage' ,new_message)
+                if(sender.id === receiver.id){
+                    new_message.seen = true
+                }
+                this.$store.commit('socket/send',new_message)
             }
 
         }
@@ -153,7 +156,8 @@ export default defineComponent({
         ImageUploadIcon,
         AlertIcon,
         DeleteIcon,
-        ProfileIcon
+        ProfileIcon,
+        NewMessageModal
     }
 })
 

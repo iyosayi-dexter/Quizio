@@ -1,6 +1,8 @@
+import {setSeen} from '../../adapters/chat'
+
 interface user{
     username:String,
-    profileImageUrl:String,
+    profileImageUrl?:String,
     id:number
 }
 interface attachment {
@@ -13,7 +15,8 @@ export interface message {
     attachments:attachment[] | null,
     text: String | null,
     seen: boolean,
-    date: String,
+    date_sent: String,
+    id:number
 }
 
 interface chatInterface{
@@ -24,54 +27,7 @@ interface chatInterface{
 }
 
 const new_message:message[]= [
-    {
-        sender:{
-            username:'gwen',
-            profileImageUrl:'some url',
-            id:2
-        },
-        receiver:{
-            username:'dexter',
-            profileImageUrl:'test url',
-            id:5
-        },
-        attachments:null,
-        text: 'hello there',
-        seen: false,
-        date: 'may 2 2020, 11:28pm',
-    },
-    {
-        sender:{
-            username:'barry',
-            profileImageUrl:'some url',
-            id:10
-        },
-        receiver:{
-            username:'dexter',
-            profileImageUrl:'some url',
-            id:5
-        },
-        attachments:null,
-        text: 'Whats up',
-        seen: false,
-        date: 'May 2 2020, 11:28pm',
-    },
-    {
-        sender:{
-            username:'dexter',
-            profileImageUrl:'some url',
-            id:5
-        },
-        receiver:{
-            username:'dexter',
-            profileImageUrl:'some url',
-            id:5
-        },
-        attachments:null,
-        text: 'Whats up',
-        seen: false,
-        date: 'May 2 2020, 11:28pm',
-    },
+
 ]
 
 const chat={
@@ -90,16 +46,27 @@ const chat={
             state.currentChatUserId = id
             state.currentChatUserUsername = username
         },
-        sendMessage(state:chatInterface , new_message:message){
+
+        appendMessage(state:chatInterface , new_message:message){
+            console.log(new_message)
             state.messages = [new_message, ...state.messages]
         },
-        markAsRead(state:chatInterface, user:user){
+
+        markAsRead(state:chatInterface, payload:{user:user, token:String}){
+            const {user , token} = payload
             state.messages = state.messages.map( message => {
                 if(message.sender.id === user.id || message.receiver.id === user.id){
+                    if(message.seen === false){
+                        setSeen(message.id, token)
+                    }
                     return {...message , seen:true}
                 }
                 return message
             })
+        },
+
+        updateMessages(state:chatInterface , messages:message[]){
+            state.messages = messages
         }
     }
 }

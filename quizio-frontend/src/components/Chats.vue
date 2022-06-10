@@ -90,6 +90,9 @@ export default defineComponent({
         },
         user_id(){
             return this.$store.state.user.id
+        },
+        token(){
+            return this.$store.state.user.tokens.access
         }
     },
     methods:{
@@ -97,22 +100,22 @@ export default defineComponent({
             @notice sets the current chat when the user click on a chat
         */
         setCurrentChatId(sender , receiver){
+            const token = this.token
             if(sender.id === this.user_id){
                 this.$store.commit('chat/setCurrentChatUserId',{id:receiver.id , username:receiver.username})
                 if(receiver.id !== this.user_id){
-                    this.$store.commit('chat/markAsRead',receiver)
+                    this.$store.commit('chat/markAsRead',{user:receiver , token})
                 }
-
                 return
             }
             this.$store.commit('chat/setCurrentChatUserId',{id:sender.id , username:sender.username})
             if(sender.id !== this.user_id){
-                this.$store.commit('chat/markAsRead',sender)
+                this.$store.commit('chat/markAsRead',{user:sender,token})
             }
         },
 
         /*
-            @notice returns the number of unread messages
+            @returns the number of unread messages
         */
         countUnread(sender , receiver){
             const messages = this.$store.state.chat.messages

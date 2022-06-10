@@ -2,19 +2,19 @@
 
     <section class='dashboard__topSection'>
 
-        <div class='dashboard__utils'>
+        <!--<div class='dashboard__utils'>
             <ul>
                 <li> <router-link to='/messages'> Chat </router-link> </li>
                 <li> <router-link to='/settings'> Edit profile </router-link> </li>
                 <li @click='logout' class='dashboard__logoutBtn'> Logout </li>
             </ul>
-        </div>
+        </div>-->
 
         <div class='dashboard__user'>
             <div class='dashboard__text'>
                 <img src='' class='dashboard__userProfilePic'/>
                 <div class='dashboard__messageWrapper'>
-                    <p> Hi <span class='dashboard__userUsername'>Dexter,</span></p>
+                    <p> Hi <span class='dashboard__userUsername'>{{user_username}},</span></p>
                     <small class='dashboard__message'>Welcome to your dashboard</small>
                 </div>
             </div>
@@ -58,6 +58,11 @@ export default defineComponent({
     data: function(){
         return {
             pie_graph
+        }
+    },
+    computed:{
+        user_username(){
+            return this.$store.state.user.username
         }
     },
     methods:{

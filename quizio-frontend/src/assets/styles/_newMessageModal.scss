@@ -1,0 +1,57 @@
+.newMessageModal{
+    position:absolute;
+    @include shadowEffect;
+    z-index:20;
+    width:80%;
+    max-width: 600px;
+    height:70%;
+    background:white;
+    border-radius:.5rem;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+.newMessageModal__header {
+    padding:2rem 1rem;
+}
+
+.newMessageModal__searchField{
+    border-bottom:3px solid $light-hue;
+    padding:.2rem 0;
+    @include flexbox(space-around, center);
+    gap:.4rem;
+    input {
+        flex:.95;
+        padding:1rem .5rem;
+        border:none;
+        outline:none;
+    }
+    label {
+        margin:0 1rem;
+    }
+}
+
+.newMessageModal__imgWrapper {
+    img {
+        width:3rem;
+        height:3rem;
+        object-fit:cover;
+        border-radius:50%;
+    }
+}
+.newMessageModal__userNameWrapper{
+    p {
+        font-weight: bolder;
+        font-size:1.3rem;
+    }
+}
+.newMessageModal__user{
+    @include flexbox(flex-start , flex-start);
+    gap:2rem;
+    margin:1rem 0;
+    padding:1rem 2em;
+    cursor:pointer;
+    &:hover{
+        background:$light-hue;
+    }
+}

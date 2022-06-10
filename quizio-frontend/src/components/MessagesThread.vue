@@ -1,7 +1,7 @@
 <template>
     <div class='message' v-for='message in messages.slice().reverse()' :class='message.sender.id === user_id? "message--right" : "message--left" '>
         <p class='message__text'> {{message.text}} </p>
-        <small class='message__date'> {{message.date}} </small>
+        <small class='message__date'> {{message.date_sent.slice(0,-2)}}{{message.date_sent.slice(-2,).toLowerCase()}} </small>
     </div>
 </template>
 

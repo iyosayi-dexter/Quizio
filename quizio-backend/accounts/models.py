@@ -1,33 +1,10 @@
-from django.contrib.auth.models import ( BaseUserManager , AbstractUser)
+from django.contrib.auth.models import (AbstractUser)
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .utils import send_email_activation_mail
-
-
-class AcccountManager(BaseUserManager):
-    def create_user(self, email , username , password=None):
-        if not email:
-            raise ValueError('Email is required')
-
-        if not username:
-            raise ValueError('Username is required')
-
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-        )
-        user.set_password(password)
-        user.save(using=self.db)
-        return user
-
-    def create_superuser(self, email , username , password=None):
-        user = self.create_user(email , username , password)
-        user.superuser=True
-        user.admin=True
-        user.staff=True
-        user.save(using=self.db)
-        return user
+from django.contrib.auth import get_user_model
+from .managers import AcccountManager
 
 
 class Account(AbstractUser):
@@ -65,8 +42,27 @@ class Account(AbstractUser):
     def is_email_verified(self):
         return self.email_verified
 
+    def __str__(self):
+        return self.username
+
+
+class Profile(models.Model):
+    user = models.ForeignKey(Account , on_delete=models.CASCADE, related_name='user')
+    profile_image = models.ImageField(upload_to='users_profiles', null=True, blank=True)
+    about= models.TextField(null=True, blank=True)
+    xp = models.IntegerField(default=0)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
+
 
 @receiver(post_save , sender=Account)
 def user_creation_receiver(sender , instance, created, **kwargs):
     if created:
-        send_email_activation_mail(instance)
+        Profile.objects.create(user=instance)
+        try:
+            send_email_activation_mail(instance)
+        except:
+            pass
+

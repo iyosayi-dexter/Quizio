@@ -18,7 +18,10 @@ class EmailThread(Thread):
         Thread.__init__(self)
 
     def run(self):
-        self.email.send()
+        try:
+            self.email.send()
+        except:
+            pass
 
 
 def send_password_reset_mail(user):

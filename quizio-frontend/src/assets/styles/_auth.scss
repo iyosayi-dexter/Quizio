@@ -61,11 +61,16 @@
 .auth__submitBtn {
     width:100%;
     background:black;
-    padding:.8rem .6rem;
+    padding:.9rem .8rem;
     border-radius:.2rem;
     color:$primary-color;
     margin:1rem auto;
     cursor:pointer;
+    transition:.2s;
+    border:none;
+}
+.auth__submitBtn--loading-true{
+    background:rgba(black,.8);
 }
 
 .auth__footer a{

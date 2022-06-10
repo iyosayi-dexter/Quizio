@@ -2,7 +2,7 @@ export const getCurrentDateTime=():string=>{
     const months: String[] = ['Jan' , 'Feb' , 'Mar' , 'Apr' , 'Jun' , 'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec']
     const date = new Date()
     const month = date.getMonth()
-    const day = date.getDate()
+    const day:String | number = date.getDate() < 10 ? `0${date.getDate()}`:date.getDate()
     const year = date.getFullYear()
 
     const time:String = (()=>{

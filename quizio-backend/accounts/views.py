@@ -1,4 +1,4 @@
-from .serializers import AuthTokenObtainPairSerializer
+from .serializers import AuthTokenObtainPairSerializer, ProfileSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.views import APIView
 from rest_framework import status,permissions
@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from .utils import send_password_reset_mail , send_email_activation_mail , send_password_change_mail, emailActivationTokenGenerator , passwordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
+from .models import Profile
 
 
 User = get_user_model()
@@ -133,3 +134,19 @@ class RequestEmailVerficationView(APIView):
 
 
 
+class getProfileView(APIView):
+    def get(self, request):
+        user = request.user
+        if user is None:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        data = Profile.objects.get(user=user)
+        serializer = ProfileSerializer(data)
+        return Response(serializer.data)
+
+class getUsersView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self , request):
+        data = Profile.objects.all()
+        serializer = ProfileSerializer(data, many=True)
+        return Response(serializer.data)

@@ -1,5 +1,4 @@
 <template>
-    <NameDisplay/>
     <main class='auth'>
 
         <section class='auth__main'>
@@ -8,33 +7,33 @@
                 <p>Join the community</p>
             </div>
             <GoogleOAuth/>
-            <form class='auth__form'>
+            <form class='auth__form' @submit.prevent='signup'>
 
                 <div class='auth__formField'>
                     <label for='email'>Email</label>
                     <br/>
-                    <input type='email'/>
+                    <input required type='email' v-model='email'/>
                 </div>
 
                 <div class='auth__formField'>
                     <label for='username'>Username</label>
                     <br/>
-                    <input type='username'/>
+                    <input required type='username' v-model='username'/>
                 </div>
 
                 <div class='auth__formField'>
                     <label for='password'>Password</label>
                     <br/>
-                    <input type='password'/>
+                    <input required type='password' v-model='password'/>
                 </div>
 
                 <div class='auth__formField'>
                     <label for='re_password'>Confirm Password</label>
                     <br/>
-                    <input type='re_password'/>
+                    <input required type='password' name='re_password' v-model='re_password'/>
                 </div>
 
-                <button type='submit' class='auth__submitBtn'>Signup</button>
+                <button type='submit' :class='submitBtnClass'>{{btnInnerText}}</button>
                 <div class='auth__footer'>
                     Already have an account? <router-link to='/login' class='--colorPrimary'>Login</router-link>
                 </div>
@@ -57,15 +56,47 @@ import {defineComponent} from 'vue'
 import NameDisplay from '../components/NameDisplay.vue'
 import GoogleOAuth from '../components/GoogleOAuth.vue'
 import maker_launch from '../assets/illustrations/maker_launch.svg'
+import {signupRequest} from '../adapters/auth'
 
 export default defineComponent({
     components:{
         NameDisplay,
-        GoogleOAuth
+        GoogleOAuth,
+
     },
     data: function(){
         return {
-            maker_launch
+            maker_launch,
+            username:'',
+            email:'',
+            password:'',
+            re_password:'',
+            loading:false
+        }
+    },
+    methods: {
+        async signup(){
+            if(this.loading){
+                return
+            }
+            this.loading = true
+            const body = {
+                email:this.email,
+                password:this.password,
+                re_password:this.re_password,
+                username:this.username
+            }
+            // await const success = await signupRequest(body)
+            this.loading = false
+
+        },
+    },
+    computed: {
+        submitBtnClass(){
+            return `auth__submitBtn auth__submitBtn--loading-${this.loading}`
+        },
+        btnInnerText(){
+            return this.loading ? 'Loading...' : 'Signup'
         }
     }
 })
