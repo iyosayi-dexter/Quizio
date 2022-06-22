@@ -33,10 +33,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
     'accounts.apps.AccountsConfig',
+    'quiz.apps.QuizConfig',
+    'course.apps.CourseConfig',
     'chat.apps.ChatConfig',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+
 ]
 
 MIDDLEWARE = [

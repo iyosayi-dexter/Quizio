@@ -7,7 +7,7 @@
             <li class='nav__listItem'><router-link to='/dashboard'> Dashboard </router-link> </li>
             <li class='nav__listItem'><router-link to='/messages'> Chats </router-link> </li>
             <li class='nav__listItem'><router-link to='/lessons'> Lessons </router-link> </li>
-            <li class='nav__listItem'><router-link to='/tests'> Take a test </router-link> </li>
+            <li class='nav__listItem'><router-link to='/courses'> Take a test </router-link> </li>
         </ul>
     </nav>
     </Transition>

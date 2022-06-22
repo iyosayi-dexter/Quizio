@@ -1,0 +1,38 @@
+.leaderboard{
+    @include shadowEffect;
+    border-radius:.4rem;
+    margin:2rem auto;
+    min-height: 70vh;
+}
+
+.leaderboard__smallText{
+    color:rgba(black,.5);
+    margin-top:.3rem;
+    font-size:.8rem;
+}
+
+.leaderboard__userWrapper {
+    @include flexbox(flex-start , center);
+    padding:1rem 2rem;
+    margin-bottom: 1rem;
+}
+.leaderboard__userUsername {
+    font-weight: bold;
+}
+.leaderboard__userXp{
+    font-size:1.2rem;
+}
+.leaderboard__userProfileWrapper{
+    @include flexbox(flex-start , center);
+    gap:1rem;
+    flex:.4;
+}
+.leaderboard__userProfileImage {
+    width:3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+}
+.leaderboard__header {
+    border-bottom:3px solid $light-hue;
+    padding:1rem;
+}

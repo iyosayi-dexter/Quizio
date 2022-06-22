@@ -1,0 +1,80 @@
+.challangeModal__overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(black,.2);
+}
+.challangeModal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    background:white;
+    transform:translate(-50%,-50%);
+    @include shadowEffect;
+    padding:2rem;
+    border-radius:.4rem;
+    width: 80%;
+    max-width: 40rem;
+    z-index:10;
+    min-height: 60%;
+}
+
+.challamgeModal__stepMangerWrapper {
+    @include flexbox(space-around , center);
+}
+
+.challamgeModal__stepMangerWrapper small {
+    color:rgba(black,.5);
+}
+
+.challamgeModal__stepMangerWrapper .--active_step {
+    color:black;
+    font-weight: bold;
+}
+
+.challamgeModal__stepWrapper{
+    cursor:pointer;
+}
+
+.challangeModal__btnWrapper {
+    display:grid;
+    place-items:center;
+}
+.challangeModal__btn{
+    border:none;
+    outline:none;
+    color:white;
+    background:$primary-color;
+    padding:.7rem .9rem;
+    border-radius:.2rem;
+    cursor:pointer;
+    margin:0 auto;
+    font-weight:bolder;
+}
+
+
+.challangeModal__user , .challangeModal__course{
+    @include flexbox(flex-start , center);
+    margin-block:1rem;
+    gap:1rem;
+    cursor:pointer;
+    // background:$light-hue;
+    padding:1rem;
+    border-radius:.4rem;
+    transition:.4s;
+    &:hover {
+        background:$light-hue;
+    }
+}
+
+.challangerModal__user--selected , .challangeModal__course--selected{
+    background:$light-hue;
+}
+
+.challangeModal__courses img , .challangeModal__users  img {
+    width:3.1rem;
+    height:3.1rem;
+    border-radius:50%;
+}

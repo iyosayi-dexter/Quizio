@@ -3,7 +3,12 @@
     <main class='messages'>
         <!-- messages section wrapper -->
         <section class='messages__chats'>
-            <h3> Messages </h3>
+            <div class='messages__chatsHeader'>
+                <h3> Messages </h3>
+                <div class='message__newMessageIconWrapper' @click='toggleModal'>
+                    <MsgIcon/>
+                </div>
+            </div>
             <input type='text' class='messages__search' placeholder='search message...' v-model='search'/>
             <div class='messages__chatsWrapper'>
                 <Chats :search='search'/>
@@ -12,11 +17,15 @@
         <!-- end of message section -->
 
         <!-- chat section wrapper -->
-        <section class='messages__chat' v-if='currentChatUserId !== null'>
-
+        <section class='messages__chat messages__chat--overlay-for-small' v-if='currentChatUserId !== null'>
             <!-- chat header -->
             <div class='messages__chatHeader'>
-                <p class='messages__chatUser'>{{currentChatUserId === user_id ? 'You' : currentChatUserUsename}}</p>
+
+                <div class='messages__toolBar'>
+                    <small @click='collapseChat' class='messages__collapseChatIcon'>Back</small>
+                    <p> {{currentChatUserId === user_id ? 'You' : currentChatUserUsename}} </p>
+                </div>
+
                 <div class='messages__iconWrapper' @click='toggleChatOptionVisibility'>
                     <Vector/>
                 </div>
@@ -30,7 +39,7 @@
                             <li class='messages__chatOption' @click='blockUser'> <AlertIcon/> Block User </li>
                             <li class='messages__chatOption' @click='deleteConversation'> <DeleteIcon/> Delete conversation</li>
                             <li class='messages__chatOption'><router-link to='user'><ProfileIcon/> View profile</router-link></li>
-                            <li class='messages__chatOption' @click='challange'> Challange </li>
+                            <li class='messages__chatOption' @click='toggleChallangeModal'> <ArrowProjectileMultiple/> Challange </li>
                         </ul>
                     </div>
                 </Transition>
@@ -38,7 +47,8 @@
 
             <!-- chat thread-> messages are shown here -->
             <div class='messages__threadWrapper'>
-                <MessagesThread/>
+                <MessagesThread v-if='hasChats'/>
+                <!-- <MessageEmptyState v-else/> -->
             </div>
 
             <!-- chat footer -->
@@ -60,32 +70,47 @@
         </section>
 
         <!-- Shown when a chat is selected to be viewed -->
-        <section v-else class='messages__chat messages__chat--center'>
+        <section v-else class='messages__chat messages__chat--center messages__chat--hide-for-small'>
             <div class='messages__defaultWrapper'>
                 <p class='messages__defaultLargeText'>Select a message </p>
                 <p class='messages__defaultSmallText'>Choose an existing conversation or start a new one</p>
-                <button class='messages__selectNewBtn'>New Message</button>
+                <button class='messages__selectNewBtn' @click='toggleModal'>New Message</button>
             </div>
         </section>
         <!-- end of chat section -->
-        <!--<NewMessageModal/>-->
+        <NewMessageModal/>
+        <ChallangeModal v-if='showChallangeModal' :hide-modal='toggleChallangeModal' slug='hello world' />
     </main>
 
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import Chats from '../components/Chats.vue'
+
+
+/*
+    Icons
+*/
 import Vector from '../assets/icons/Vector.vue'
 import SendIcon from '../assets/icons/SendIcon.vue'
 import ImageUploadIcon from '../assets/icons/ImageUploadIcon.vue'
 import AlertIcon from '../assets/icons/Alert.vue'
 import DeleteIcon from '../assets/icons/Delete.vue'
 import ProfileIcon from '../assets/icons/Profile.vue'
+import MsgIcon from '../assets/icons/MsgIcon.vue'
+import ArrowProjectileMultiple from '../assets/icons/ArrowProjectileMultiple.vue'
+
+/*
+    Components
+*/
+import Chats from '../components/Chats.vue'
 import MessagesThread from '../components/MessagesThread.vue'
 import {message as messageInterface} from '../store/modules/chat'
 import {getCurrentDateTime} from '../utils/date'
 import NewMessageModal from '../components/NewMessageModal.vue'
+import MessageEmptyState from '../components/MessageEmptyState.vue'
+import ChallangeModal from '../components/ChallangeModal.vue'
+
 
 export default defineComponent({
     data: function(){
@@ -94,6 +119,7 @@ export default defineComponent({
             message_text:'',
             attachments:null,
             search:'',
+            showChallangeModal:false,
         }
     },
     computed:{
@@ -105,6 +131,9 @@ export default defineComponent({
         },
         user_id(){
             return this.$store.state.user.id
+        },
+        hasChats(){
+            return this.$store.state.chat.messages.length > 0 ? true: false
         }
     },
     methods: {
@@ -117,11 +146,14 @@ export default defineComponent({
         deleteConversation: function(){
             console.log('deleting conversation')
         },
-        challange:function(){
-            console.log('starting challange')
+        toggleChallangeModal:function(){
+            this.showChallangeModal = !this.showChallangeModal
         },
-        changeSearchValue:function(){
-
+        toggleModal(){
+            this.$store.commit('users/toggleModal')
+        },
+        collapseChat(){
+                this.$store.commit('chat/closeChat');
         },
         sendMessage(){
             if (this.message_text.trim() !== '' | (this.attachments !== null && this.attachments.length>0)){
@@ -144,10 +176,16 @@ export default defineComponent({
                     new_message.seen = true
                 }
                 this.$store.commit('socket/send',new_message)
+                this.message_text=''
             }
 
         }
     },
+    // mounted(){
+    //     if(this.$store.state.user.is_authenticated !== true){
+    //         this.$router.push('/login?next=messages')
+    //     }
+    // },
     components:{
         Chats,
         MessagesThread,
@@ -157,7 +195,11 @@ export default defineComponent({
         AlertIcon,
         DeleteIcon,
         ProfileIcon,
-        NewMessageModal
+        MsgIcon,
+        NewMessageModal,
+        MessageEmptyState,
+        ArrowProjectileMultiple,
+        ChallangeModal
     }
 })
 

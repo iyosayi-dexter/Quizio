@@ -15,7 +15,7 @@ html{
     padding:2rem 5rem;
 }
 
-input, button{
+input, button , select{
     font-family:$primary-font;
 }
 
@@ -47,6 +47,10 @@ input, button{
 @import 'messages';
 @import 'dashboard';
 @import 'newMessageModal';
+@import 'lessons';
+@import 'tests';
+@import 'leaderboard';
+@import 'challangeModal';
 
 .--colorPrimary {
     color:$primary-color;

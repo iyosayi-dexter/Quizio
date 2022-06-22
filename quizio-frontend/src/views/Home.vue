@@ -5,7 +5,7 @@
             <h1 class='container__largeText'>Welcome to <span class='container__appName'>Quizio</span></h1>
 
             <div class='container__linkWrapper'>
-                <router-link  to='/test' class='container__link container --bgPrimary'>
+                <router-link  to='/tests' class='container__link container__link--bgPrimary'>
                     Take a test
                 </router-link>
 

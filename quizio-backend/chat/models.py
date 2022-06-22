@@ -12,7 +12,7 @@ class MessageManager(models.Manager):
 
     def get_messages(self,user):
         lookup = Q(sender=user) | Q(receiver=user)
-        return self.get_queryset().filter(lookup)
+        return self.get_queryset().filter(lookup).order_by('-date_sent')
 
 
 class Message(models.Model):

@@ -4,6 +4,7 @@ import user from './modules/user'
 import chat from './modules/chat'
 import users from './modules/users'
 import socket from './modules/socket'
+import lesson from './modules/lesson'
 
 const store = createStore({
     modules:{
@@ -11,7 +12,8 @@ const store = createStore({
         chat,
         user,
         users,
-        socket
+        socket,
+        lesson
     },
 })
 

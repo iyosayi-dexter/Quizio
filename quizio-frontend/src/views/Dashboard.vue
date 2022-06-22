@@ -14,7 +14,7 @@
             <div class='dashboard__text'>
                 <img src='' class='dashboard__userProfilePic'/>
                 <div class='dashboard__messageWrapper'>
-                    <p> Hi <span class='dashboard__userUsername'>{{user_username}},</span></p>
+                    <p> Hi <span class='dashboard__userUsername'>{{user_username || 'AnonymousUser'}},</span></p>
                     <small class='dashboard__message'>Welcome to your dashboard</small>
                 </div>
             </div>
@@ -65,6 +65,11 @@ export default defineComponent({
             return this.$store.state.user.username
         }
     },
+    // mounted(){
+    //     if(this.$store.state.user.is_authenticated !== true){
+    //         this.$router.push('/login?next=dashboard')
+    //     }
+    // },
     methods:{
         logout:function (){
             console.log('loggin out')

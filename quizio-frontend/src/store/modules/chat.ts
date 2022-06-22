@@ -46,12 +46,13 @@ const chat={
             state.currentChatUserId = id
             state.currentChatUserUsername = username
         },
-
+        closeChat(state:chatInterface){
+                state.currentChatUserId = null
+                state.currentChatUserUsername = null
+        },
         appendMessage(state:chatInterface , new_message:message){
-            console.log(new_message)
             state.messages = [new_message, ...state.messages]
         },
-
         markAsRead(state:chatInterface, payload:{user:user, token:String}){
             const {user , token} = payload
             state.messages = state.messages.map( message => {

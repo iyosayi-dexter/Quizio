@@ -28,12 +28,13 @@ export default defineComponent({
 <style scoped lang='scss'>
 .notfound__wrapper{
     display:flex;
-    justify-content:center;
+    justify-content:space-around;
     align-items:center;
     margin:2rem auto;
+    padding:2rem;
 }
 .notfound__illustrationWrapper img {
-    max-width:75%;
+    max-width:70%;
 }
 .notfound__textWrapper{
     width:fit-content;

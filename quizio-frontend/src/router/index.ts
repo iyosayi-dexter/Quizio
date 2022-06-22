@@ -36,12 +36,12 @@ const routes = [
         component:()=> import('../views/Test.vue')
     },
     {
-        path:'/tests',
-        name:'Tests',
-        component:()=> import('../views/Tests.vue')
+        path:'/courses',
+        name:'courses',
+        component:()=> import('../views/Courses.vue')
     },
     {
-        path:'/test-config',
+        path:'/tests/:test',
         name:'Test-config',
         component:()=> import('../views/Test-config.vue')
     },
@@ -58,6 +58,11 @@ const routes = [
         path:'/lessons',
         name:'lessons',
         component:()=> import('../views/Lessons.vue')
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component:()=> import('../views/NotFound.vue')
     }
 ]
 

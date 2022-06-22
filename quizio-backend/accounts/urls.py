@@ -10,5 +10,5 @@ urlpatterns = [
     path('email-request-verify/' , RequestEmailVerficationView.as_view() , name='email_verify_request'),
     path('password-reset/' , PasswordResetView.as_view() , name='password_reset'),
     path('password-reset-confirm/<str:uidb64>/<str:token>/', PasswordResetConfirmView.as_view() , name='password_reset_confirm'),
-    path('users' , getUsersView.as_view(), name='get_users')
+    path('users/' , getUsersView.as_view(), name='get_users')
 ]

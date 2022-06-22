@@ -1,0 +1,261 @@
+@mixin field_resets {
+    border:none;
+    padding:1rem .8rem;
+    background:$light-hue;
+    border-radius:.5rem;
+    outline:none;
+    font-size:.95rem;
+}
+.test__filterWrapper input {
+    @include field_resets;
+    flex:.8;
+}
+.test__filterWrapper select {
+    @include field_resets;
+    flex:.12;
+}
+.test__filterWrapper{
+    width: 100%;
+    margin:2rem auto;
+    @include flexbox(space-between, center);
+}
+.test__grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:3rem;
+    margin-top:4rem;
+}
+
+.testComp{
+    @include shadowEffect;
+    border-radius:.2rem;
+    cursor:pointer;
+    padding:1rem 3rem;
+    transition:.5s;
+    &:hover {
+        transform: translateY(-5%);
+    }
+}
+.testComp__imageWrapper{
+    width:10rem;
+    height:10rem;
+    position: relative;
+    border:3px solid $light-hue;
+    @include flexbox(center, center);
+    border-radius:50%;
+    margin:0 auto;
+    position:relative;
+    margin-top: 2rem;
+    padding:1rem;
+}
+.testComp__imageWrapper > img {
+    width:9.5rem;
+    height:9.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.testComp__title {
+    text-align: center;
+    margin:1rem 0;
+}
+
+
+.testConfig {
+    margin-top:3rem;
+}
+.testConfig__mainWrapper {
+    @include flexbox(space-between , center);
+    gap:2rem;
+}
+
+.testConfig__form{
+    flex:.5;
+}
+
+.testConfig__testName{
+    &::first-letter{
+        text-transform: uppercase;
+    }
+}
+.testConfig__field{
+    @include flexbox(flex-start, flex-start);
+    flex-direction: column;
+    margin: 1rem auto;
+    label {
+        font-size:.9rem;
+        font-weight: bold;
+        margin:.3rem 0;
+    }
+    select {
+        border:none;
+        background:$light-hue;
+        padding:1rem .4rem;
+        outline:none;
+        width:80%;
+        max-width: 350px;
+    }
+}
+
+.testConfig__illustrationWrapper{
+    flex:.5;
+    img {
+        max-width: 100%;
+    }
+    p:first-child {
+        font-size:2rem;
+    }
+    p:nth-child(2) {
+        font-size:.9rem;
+        color:$secondary-color;
+    }
+}
+.testConfig__submitBtn{
+    border:none;
+    outline:none;
+    color:white;
+    background:$primary-color;
+    padding:1rem 5rem;
+    border-radius:.2rem;
+    cursor:pointer;
+    font-weight: bold;
+    width:80%;
+    max-width: 350px;
+    margin:1rem 0;
+}
+
+.test__page {
+    margin:2rem 0;
+}
+.test__screen {
+    background:$light-hue;
+    min-height: 200px;
+    width:100%;
+    border-radius:.3rem;
+    padding:1rem;
+    margin:0 auto;
+}
+
+.test__options{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:2rem;
+}
+
+.test__optionsWrapper {
+    margin:1rem 0;
+    background:$light-hue;
+    padding:1rem 1.2rem;
+    border-radius:.2rem;
+    @include flexbox(flex-start, center);
+    gap:1rem;
+    input {
+        cursor: pointer;
+    }
+}
+
+.test__controls {
+    @include flexbox(space-evenly, center);
+}
+
+.test__controls button {
+    border:none;
+    outline:none;
+    padding:.8rem 1.5rem;
+    border-radius:.3rem;
+    cursor:pointer;
+}
+.test__controls button:nth-child(2){
+    background:$primary-color;
+    font-weight: bold;
+    color:white;
+}
+
+.test__confirmModal {
+    z-index:300;
+    width:80%;
+    max-width: 500px;
+    background:white;
+    padding:3rem;
+    border-radius:.3rem;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.test__confirmModal button {
+    border:none;
+    outline:none;
+    padding:.5rem .9rem;
+    border-radius:.2rem;
+    cursor:pointer;
+    &:last-child{
+        background:$primary-color;
+        color:white;
+    }
+}
+
+.test__confirmModalButtonContainer{
+    @include flexbox(flex-start , center);
+    gap:5rem;
+    width: 100%;
+    margin-top:2rem;
+}
+
+
+.test__confirmModalOverlay {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(black,.2);
+}
+
+.modal-bounce-enter-active{
+    animation: modal-bounce 0.5s;
+}
+
+.modal-bounce-leave-active {
+    animation: modal-bounce 0.5s reverse;
+}
+
+@keyframes modal-bounce {
+    0% {
+        transform: translate(-50%,-50%) scale(0);
+    }
+    50% {
+        transform: translate(-50%,-50%) scale(1.2);
+    }
+    100% {
+        transform: translate(-50%,-50%) scale(1);
+    }
+}
+
+
+@media screen and (max-width:700px){
+    .testConfig__illustrationWrapper{
+        display:none;
+    }
+    .testConfig__mainWrapper{
+        display:block;
+    }
+    .testConfig__form{
+        margin:3rem auto;
+    }
+    .test__grid{
+        display:block;
+    }
+    .testComp{
+        margin:2.5rem auto;
+    }
+    .testConfig__submitBtn , .testConfig__field select{
+        width:100%;
+        max-width:100%;
+    }
+    .test__options{
+        display:block;
+    }
+
+}

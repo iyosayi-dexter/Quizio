@@ -30,31 +30,42 @@ export default defineComponent({
     },
     computed:{
         /*
-            @returns latest uqniue chats
+        * @returns latest uqniue chats
         */
         messages(){
+            // latest unqiue: an array containing only unique message threads
             let latest_unique = []
             const messages = this.$store.state.chat.messages
 
             messages.forEach((message , index)=>{
+                // first message is added on
                 if(index === 0){
                     latest_unique = latest_unique.concat(message);
                     return;
                 }
 
                 let _exists = false
-                // check if the current message exists in latest_unique
+
+                /*
+                * @notice Checks if a message by this user alredy exists in latest unqiue
+                */
                 latest_unique.forEach((item)=>{
-                    // when the user sends a note to self
+                    /*
+                    * @notice when a user sends a note to self
+                    */
                     if(message.sender.id === this.user_id && message.receiver.id === this.user_id){
-                        // check if the a note to self is already in the array
+                        /*
+                        * @notice checks if a note to self alreay exists in latest unque
+                        */
                         const self_notes = latest_unique.filter(message => message.sender.id == this.user_id && message.receiver.id === this.user_id)
                         if(self_notes.length === 0){
                             latest_unique = latest_unique.concat(message);
                         }
                     }
 
-
+                    /*
+                        * @notice When its not a note to self
+                    */
                     if(message.sender.id === this.user_id){
                         if(message.receiver.id === item.receiver.id | message.receiver.id === item.sender.id){
                             _exists = true
@@ -65,13 +76,15 @@ export default defineComponent({
 
                 })
 
+                // adds a new unique message thread
                 if(_exists === false){
                     latest_unique = latest_unique.concat(message);
                 }
+
             })
 
             /*
-            @notice filtering messages based on search term
+            * @notice filtering messages based on search term
             */
             if(this.search.trim() !==''){
                 return latest_unique.filter(message=>{
@@ -84,7 +97,7 @@ export default defineComponent({
             }
 
             /*
-                @returns latest unique messages when no search term is applied
+            * @returns latest unique messages when no search term is applied
             */
             return latest_unique
         },
@@ -97,7 +110,7 @@ export default defineComponent({
     },
     methods:{
         /*
-            @notice sets the current chat when the user click on a chat
+        * notice sets the current chat when the user click on a chat
         */
         setCurrentChatId(sender , receiver){
             const token = this.token
@@ -115,7 +128,7 @@ export default defineComponent({
         },
 
         /*
-            @returns the number of unread messages
+        * @returns the number of unread messages
         */
         countUnread(sender , receiver){
             const messages = this.$store.state.chat.messages

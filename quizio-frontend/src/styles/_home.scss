@@ -24,7 +24,8 @@
     }
 }
 .container__linkWrapper {
-    @include flexbox(flex-start, center);
+    @include flexbox(space-around, center);
+    margin:1rem auto;
 }
 
 .container__link {
@@ -35,13 +36,15 @@
     width:8.5rem;
     text-align:center;
     text-decoration: none;
-    color:black;
+    color:white;
 }
+
 .container__link--bgPrimary{
     background:$primary-color;
 }
 .container__link--bgFade{
     background:whitesmoke;
+    color:black;
 }
 .container__illustrationWraper {
     width:20%;
@@ -54,5 +57,8 @@
 @media screen and (max-width:700px) {
     .container {
         display: block;
+    }
+    .container__largeText{
+        text-align: center;
     }
 }

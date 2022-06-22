@@ -70,6 +70,10 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
+        # This prevents messages from being echoed twice to the same user
+        if receiver_chat_name == self.chat_name:
+            return
+
         # echo back to user
         async_to_sync(self.channel_layer.group_send)(
             self.chat_name,
@@ -82,4 +86,4 @@ class ChatConsumer(WebsocketConsumer):
     def chat_message(self, event):
         message = event['message_data']
         self.send(text_data=message)
-
+    

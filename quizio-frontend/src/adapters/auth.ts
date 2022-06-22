@@ -46,7 +46,7 @@ export const signupRequest= async (data:signupInterface)=>{
     }
 
     try{
-        const res = await fetch(`${REST_API_URL}/api/auth/signup/`,config)
+        const res = await fetch(`${REST_API_URL}/auth/signup/`,config)
         if(res.status === 201){
             return true
         }
@@ -56,6 +56,30 @@ export const signupRequest= async (data:signupInterface)=>{
     }
 
 }
+
+export const fetchUsers=async(token:string)=>{
+    const Authorization = token
+    const config = {
+        method:'GET',
+        headers:{
+            'Content-type':'application/json',
+            Authorization
+        }
+    }
+
+    try{
+        const res = await fetch(`${REST_API_URL}/auth/users/`,config)
+        if(res.status === 200){
+            const data =  await res.json()
+            return data
+        }
+        return []
+    }catch(err){
+        return []
+    }
+
+}
+
 const storeRefresh=(token:string)=>{
 
 }

@@ -8,33 +8,28 @@ interface user {
     profile_image: String | null
 }
 
-const initialState:user[] = [
-    {
-        "user": {
-            "username": "dexter",
-            "id": 1
-        },
-        "about": null,
-        "xp": 0,
-        "profile_image": null
-    },    {
-        "user": {
-            "username": "Gwen",
-            "id": 5
-        },
-        "about": null,
-        "xp": 0,
-        "profile_image": null
-    }
-]
+interface state {
+    all:user[],
+    show_users_modal:boolean
+}
+
+const initialState:user[] = []
 
 const users = {
     namespaced:true,
-    state(): user[]{
-        return initialState
+    state(): state{
+        return {
+            all:initialState,
+            show_users_modal:false
+        }
     },
     mutations:{
-
+        setUsers(state:state, users:user[]){
+            state.all = users
+        },
+        toggleModal(state:state){
+            state.show_users_modal = !state.show_users_modal
+        }
     }
 }
 

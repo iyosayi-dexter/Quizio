@@ -1,5 +1,5 @@
 .newMessageModal{
-    position:absolute;
+    position:fixed;
     @include shadowEffect;
     z-index:20;
     width:80%;
@@ -11,10 +11,36 @@
     top:50%;
     transform:translate(-50%, -50%);
 }
+.newMessageModal__iconWrapper {
+    @include flexbox(center , center);
+    padding:.5rem;
+    border-radius:50%;
+    transition:.5s;
+    &:hover {
+        background:rgba($secondary-color, .2);
+    }
+    svg {
+        max-width: .9rem;
+        max-height: .9rem;
+    }
+}
+.newMessageModal__overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:rgba(black,.3);
+}
 .newMessageModal__header {
     padding:2rem 1rem;
+    @include flexbox(flex-start, center);
+    gap:2rem;
 }
 
+.newMessageModal__iconWrapper {
+    cursor: pointer;
+}
 .newMessageModal__searchField{
     border-bottom:3px solid $light-hue;
     padding:.2rem 0;
