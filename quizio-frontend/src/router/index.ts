@@ -50,6 +50,11 @@ const routes = [
         component:()=> import('../views/Leaderboard.vue')
     },
     {
+        path:'/lessons/:slug',
+        name:':lessson-detail',
+        component:()=> import('../views/LessonDetail.vue')
+    },
+    {
         path:'/notfound',
         name:'notfound',
         component:()=> import('../views/NotFound.vue')

@@ -19,3 +19,22 @@
     margin:2rem auto;
     @include flexbox(space-between, center);
 }
+.lesson__section {
+    color:$secondary-color;
+    font-size:black;
+}
+.lesson__sectionHeader{
+    margin-top:1.4rem;
+    margin-bottom: .2rem;
+}
+.lessons__wrapper {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:1rem;
+}
+
+@media screen and (max-width:850px) {
+    .lessons__wrapper{
+        display:block;
+    }
+}

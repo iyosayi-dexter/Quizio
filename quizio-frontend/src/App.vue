@@ -13,6 +13,7 @@ import Header from './components/Header.vue'
 import {loadMessages} from './adapters/chat'
 import {fetchUsers} from './adapters/auth'
 import {fetchCourses} from './adapters/lesson'
+import {fetchLessons} from './adapters/lesson'
 
 
 export default defineComponent({
@@ -37,8 +38,10 @@ export default defineComponent({
         }
     },
     created:async function(){
-        const res = await fetchCourses()
-        this.$store.commit('lesson/setCourses', res)
+        const courses_res = await fetchCourses()
+        const lessons_res = await fetchLessons()
+        this.$store.commit('lesson/setCourses', courses_res)
+        this.$store.commit('lesson/setLessons', lessons_res)
     },
     methods: {
         relay_message: function(message){

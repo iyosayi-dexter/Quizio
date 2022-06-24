@@ -36,9 +36,11 @@ INSTALLED_APPS = [
     'quiz.apps.QuizConfig',
     'course.apps.CourseConfig',
     'chat.apps.ChatConfig',
+    'lesson.apps.LessonConfig',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_summernote'
 
 ]
 
@@ -162,6 +164,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL='accounts.Account'
+
+MEDIA_URL='/media/'
+MEDIA_ROOTE= BASE_DIR/'media'
+
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
